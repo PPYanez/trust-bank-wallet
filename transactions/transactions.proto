@@ -1,0 +1,25 @@
+syntax = "proto3";
+option go_package = "trust-bank/transactions/transactions";
+
+service Transaction {
+    // Persist received TransactionRequest into the database
+    rpc PersistTransaction(TransactionRequest) returns (TransactionResponse) {}
+}
+
+// TransactionRequest are requests sent by a client and include informaiton
+// about what type of transaction to make, the origin and destiny accounts,
+// and the ammounts of money needed.
+message TransactionRequest {
+    string nro_cliente_origen = 1;
+    string nro_cliente_destino = 2;
+    float monto = 3;
+    string divisa = 4;
+    string tipo_operacion = 5;
+}
+
+// Represents the resulting status of a transaction
+// true means a successful transaction
+// false means a failed transaction
+message TransactionResponse {
+    bool status = 1;
+}
